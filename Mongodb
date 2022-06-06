@@ -1,0 +1,51 @@
+
+
+
+Create Config Map file 
+
+
+Create Secret.yaml file 
+Click on link https://kubernetes.io/docs/concepts/configuration/secret/
+Use cases
+Use case: As container environment variables
+Create a secret
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysecret
+type: Opaque
+data:
+  USER_NAME: 
+  PASSWORD:
+  
+  Create username and password on terminal using following commands:
+     echo -n mongouser | base64
+     echo -n mongopassword | base64
+     
+Create a new mongo.yaml file to configure the deployment and service together in 1 file 
+Go to the link https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+        
+ Go to docker hub and gather details of mongodb under tag section regarding the version and port
